@@ -1,0 +1,13 @@
+# Compilation outputs
+bin/
+obj/
+*.o
+*.out
+
+# IDE and System Files
+.vscode/
+.DS_Store
+*.swp
+
+# Logs
+*.log
