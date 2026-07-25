@@ -9,7 +9,7 @@ BINDIR      = bin
 CC          = gcc
 # -Wall -Wextra: Show all helpful warnings
 # -I$(INCDIR): Look for .h files in the include directory
-CFLAGS      = -Wall -Wextra -I$(INCDIR)
+CFLAGS      = -Wall -Wextra -I$(INCDIR) -pthread
 
 # Logic to find all .c files in src/ and define corresponding .o files in obj/
 SRCS        = $(wildcard $(SRCDIR)/*.c)
