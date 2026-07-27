@@ -1,3 +1,8 @@
+// ui.c
+// Author: Maksym Sharai
+// Date: 26/06/2026
+// Renders the text-based control panel and displays the current input state.
+
 #include "../include/ui.h"
 
 #include <stdio.h>

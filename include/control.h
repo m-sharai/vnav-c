@@ -1,3 +1,8 @@
+// control.h
+// Author: Maksym Sharai
+// Date: 26/06/2026
+// Declares the shared control panel state and input handling interface.
+
 #ifndef CONTROL_H
 #define CONTROL_H
 
@@ -36,4 +41,4 @@ void *input_listener_thread(void *arg);
 // Main update loop that reads the shared state and redraws the panel.
 void run_simulation(ControlPanel *control_panel);
 
-#endif
+#endif // CONTROL_H

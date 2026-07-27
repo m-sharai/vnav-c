@@ -1,3 +1,8 @@
+// main.c
+// Author: Maksym Sharai
+// Date: 26/06/2026
+// Starts the terminal UI, input loop, and simulation update cycle.
+
 #include <pthread.h>
 #include <stdlib.h>
 

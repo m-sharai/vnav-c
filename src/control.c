@@ -1,3 +1,8 @@
+// control.c
+// Author: Maksym Sharai
+// Date: 26/06/2026
+// Handles keyboard input and altitude target updates for the simulation.
+
 #include "../include/control.h"
 
 #include <stdio.h>
@@ -9,7 +14,7 @@
 
 // Shared control state used by both threads.
 ControlPanel control_panel = {.target_altitude = 10000.0,
-                              .target_speed = 250.0,
+                              .target_speed = 250.0, // WARNING: Placeholder
                               .is_running = 1,
                               .input_buffer = "",
                               .input_length = 0,
@@ -41,15 +46,23 @@ void *input_listener_thread(void *arg) {
 
       if (control_panel.input_length > 0) {
         char *end_ptr = NULL;
-        double new_alt = strtod(control_panel.input_buffer, &end_ptr);
 
-        // Only accept input that starts with a real number.
-        if (end_ptr != control_panel.input_buffer) {
-          if (new_alt < 0.0) {
-            // Negative values are used as the exit signal.
-            control_panel.is_running = 0;
-          } else {
-            control_panel.target_altitude = new_alt;
+        // A single minus sign is treated as the shutdown command.
+        if (strcmp(control_panel.input_buffer, "-") == 0) {
+          control_panel.is_running = 0;
+        } else {
+          // Parse the altitude as a whole number of feet.
+          long new_alt = strtol(control_panel.input_buffer, &end_ptr, 10);
+
+          // Only accept whole-foot integer values.
+          if (end_ptr != control_panel.input_buffer && *end_ptr == '\0') {
+            if (new_alt < 0) {
+              // Negative values are used as the exit signal.
+              control_panel.is_running = 0;
+            } else {
+              // Store the accepted altitude for the simulation.
+              control_panel.target_altitude = (double)new_alt;
+            }
           }
         }
       }
@@ -57,15 +70,16 @@ void *input_listener_thread(void *arg) {
       // Clear the buffer after a submission so the next input starts fresh.
       control_panel.input_length = 0;
       control_panel.input_buffer[0] = '\0';
+
       // Backspace removes the last typed character.
     } else if (input_char == 127 || input_char == '\b') {
       if (control_panel.input_length > 0) {
         control_panel.input_length--;
         control_panel.input_buffer[control_panel.input_length] = '\0';
       }
-      // Accept only digits, a decimal point, and a minus sign.
-    } else if ((input_char >= '0' && input_char <= '9') || input_char == '.' ||
-               input_char == '-') {
+
+      // Accept only digits and an optional leading minus sign.
+    } else if ((input_char >= '0' && input_char <= '9') || input_char == '-') {
       if (control_panel.input_length < INPUT_BUFFER_SIZE - 1) {
         control_panel.input_buffer[control_panel.input_length++] =
             (char)input_char;

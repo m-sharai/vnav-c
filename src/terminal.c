@@ -1,3 +1,8 @@
+// terminal.c
+// Author: Maksym Sharai
+// Date: 26/06/2026
+// Provides terminal setup and screen-control helpers for the UI.
+
 #include "../include/terminal.h"
 
 #include <stdlib.h>
