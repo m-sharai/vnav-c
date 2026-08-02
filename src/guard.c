@@ -41,7 +41,7 @@ double guard_clamp(double value, double min, double max) {
 }
 
 // Clamp a target altitude to the allowed altitude range.
-double guard_clamp_alt(FlightGuard *guard, double target_alt_ft) {
+double guard_clamp_alt(const FlightGuard *guard, double target_alt_ft) {
   double min_alt_ft = guard->min_alt_ft;
   double max_alt_ft = guard->max_alt_ft;
 
@@ -57,7 +57,7 @@ double guard_clamp_alt(FlightGuard *guard, double target_alt_ft) {
 }
 
 // Clamp a target vertical speed to the allowed vertical speed range.
-double guard_clamp_vs(FlightGuard *guard, double target_vs_fpm) {
+double guard_clamp_vs(const FlightGuard *guard, double target_vs_fpm) {
   double min_vs_fpm = guard->min_vs_fpm;
   double max_vs_fpm = guard->max_vs_fpm;
 
@@ -73,7 +73,7 @@ double guard_clamp_vs(FlightGuard *guard, double target_vs_fpm) {
 }
 
 // Clamp a target pitch degree to the allowed pitch degree range.
-double guard_clamp_pitch(FlightGuard *guard, double target_pitch_deg) {
+double guard_clamp_pitch(const FlightGuard *guard, double target_pitch_deg) {
   double min_pitch_deg = guard->min_pitch_deg;
   double max_pitch_deg = guard->max_pitch_deg;
 

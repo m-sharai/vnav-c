@@ -11,16 +11,22 @@
 
 typedef struct {
 
+  // Target altitude in feet for vertical navigation.
   double target_altitude_ft;
 
+  // Gain used to convert altitude error into a pitch command.
   double pitch_gain;
 
+  // Non-zero when the vertical navigation controller is active.
   int vnav_active;
 
 } EFCS;
 
+// Initialize the EFCS state to default values.
 void efcs_init(EFCS *self);
+
+// Update the flight control system using dynamics, guard state, and time step.
 void efcs_update(EFCS *efcs, FlightDynamics *flight_dynamics,
-                 FlightGuard *guard, double delta_time_ms);
+                 const FlightGuard *guard, double delta_time_ms);
 
 #endif // EFCS_H

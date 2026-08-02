@@ -32,12 +32,12 @@ void guard_init(FlightGuard *self);
 double guard_clamp(double value, double min, double max);
 
 // Clamp a target altitude to the allowed altitude range.
-double guard_clamp_alt(FlightGuard *guard, double target_alt_ft);
+double guard_clamp_alt(const FlightGuard *guard, double target_alt_ft);
 
 // Clamp a target vertical speed to the allowed vertical speed range.
-double guard_clamp_vs(FlightGuard *guard, double target_vs_fpm);
+double guard_clamp_vs(const FlightGuard *guard, double target_vs_fpm);
 
 // Clamp a target pitch degree to the allowed pitch degree range.
-double guard_clamp_pitch(FlightGuard *guard, double target_pitch_deg);
+double guard_clamp_pitch(const FlightGuard *guard, double target_pitch_deg);
 
 #endif // GUARD_H
