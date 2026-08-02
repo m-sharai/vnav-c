@@ -4,7 +4,7 @@
 
 - Project name: vnav-c
 - Stage: Early development / prototype
-- Description: A lightweight C-based flight simulation project that models basic VNAV/EFCS behavior and a text-based user interface.
+- Description: A lightweight C-based flight simulation project that models basic VNAV/EFCS behavior, aircraft state updates, and a text-based user interface with live telemetry.
 
 > Info: Here will be detailed description. I promise.. :D
 
@@ -13,6 +13,17 @@
 - Clone the repository.
 - Run `make` from the project root.
 - The executable will be created at `bin/vnav_efcs`.
+
+## Run Instructions
+
+- Start the program with `./bin/vnav_efcs` after building.
+- The terminal UI shows the current target altitude, altitude, vertical speed, indicated airspeed, and pitch.
+
+## Controls
+
+- Type a whole-number target altitude in feet and press Enter to apply it.
+- Use Backspace to edit the current input buffer.
+- Enter `-` or any negative number and press Enter to exit the simulation.
 
 ## Repository Tree
 
@@ -57,7 +68,7 @@ vnav-c/
 - `include/efcs.h` declares the EFCS (autopilot/VNAV) state interface.
 - `include/guard.h` declares the flight guard limits and clamp helpers that keep the simulation within safe bounds.
 - `include/terminal.h` declares terminal setup/restore functions used to enable raw input mode.
-- `include/ui.h` declares the panel drawing function used by the text UI.
+- `include/ui.h` declares the panel drawing function used by the text UI and telemetry display.
 - `src/aircraft.c` coordinates aircraft initialization and the main step update flow.
 - `src/control.c` contains the shared control state, input parsing, and input thread logic.
 - `src/dynamics.c` implements the core flight dynamics update (altitude, pitch, elevator actuation, and vertical speed).
@@ -65,4 +76,4 @@ vnav-c/
 - `src/guard.c` implements the guard helper functions (clamping limits).
 - `src/main.c` contains the lightweight program entry point and simulation loop.
 - `src/terminal.c` contains terminal raw-mode helpers.
-- `src/ui.c` contains the text-based interface rendering.
+- `src/ui.c` contains the text-based interface rendering and live aircraft telemetry output.

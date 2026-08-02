@@ -10,11 +10,12 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "../include/aircraft.h"
 #include "../include/ui.h"
 
 // Shared control state used by both threads.
 ControlPanel control_panel = {.target_altitude = 10000.0,
-                              .target_speed = 250.0, // WARNING: Placeholder
+                              .target_speed = 250.0, // ! WARNING: Placeholder
                               .is_running = 1,
                               .input_buffer = "",
                               .input_length = 0,
@@ -101,21 +102,38 @@ void *input_listener_thread(void *arg) {
 // Reads the latest shared state and redraws the panel about 50 times per
 // second.
 void run_simulation(ControlPanel *control_panel) {
+  if (control_panel == NULL) {
+    return;
+  }
+
+  // Initialize the complete Boeing 738 aircraft system
+  Aircraft b738;
+  aircraft_init(&b738);
+
+  // 50 Hz tick rate (20 ms)
+  const double delta_time_ms = 20.0;
+
   while (control_panel->is_running) {
     // Local copies keep the render step short and reduce lock time.
     double new_target_alt = 10000.0;
     char input_buffer[INPUT_BUFFER_SIZE];
 
-    // Copy the shared state while holding the mutex.
+    // 1. Copy the shared state while holding the mutex.
     pthread_mutex_lock(&control_panel->lock);
     new_target_alt = control_panel->target_altitude;
     strncpy(input_buffer, control_panel->input_buffer, INPUT_BUFFER_SIZE);
     input_buffer[INPUT_BUFFER_SIZE - 1] = '\0';
     pthread_mutex_unlock(&control_panel->lock);
 
+    // 2. Feed pilot target altitude to EFCS
+    b738.efcs.target_altitude_ft = new_target_alt;
+
+    // 3. Advance aircraft control and physics pipeline by 1 tick
+    aircraft_step(&b738, delta_time_ms);
+
     // Redraw from the top of the terminal each frame.
     printf("\n\n\n\n\n");
-    print_panel(new_target_alt, input_buffer);
+    print_panel(&b738, input_buffer);
 
     // Sleep for 20 ms to aim for a 50 Hz refresh rate.
     usleep(20000);
