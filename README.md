@@ -1,6 +1,20 @@
-# Project File Structure
+# vnav-c
 
-This repository is organized as follows:
+## Project Name, Stage, and Description
+
+- Project name: vnav-c
+- Stage: Early development / prototype
+- Description: A lightweight C-based flight simulation project that models basic VNAV/EFCS behavior and a text-based user interface.
+
+> Info: Here will be detailed description. I promise.. :D
+
+## Build Instructions
+
+- Clone the repository.
+- Run `make` from the project root.
+- The executable will be created at `bin/vnav_efcs`.
+
+## Repository Tree
 
 ```text
 vnav-c/
@@ -16,12 +30,13 @@ vnav-c/
 │   ├── terminal.h
 │   └── ui.h
 └── src/
-	├── control.c
-	├── dynamics.c
-	├── guard.c
-	├── main.c
-	├── terminal.c
-	└── ui.c
+    ├── control.c
+    ├── dynamics.c
+    ├── efcs.c
+    ├── guard.c
+    ├── main.c
+    ├── terminal.c
+    └── ui.c
 ```
 
 ## Folder Overview
@@ -43,7 +58,8 @@ vnav-c/
 - `include/terminal.h` declares terminal setup/restore functions used to enable raw input mode.
 - `include/ui.h` declares the panel drawing function used by the text UI.
 - `src/control.c` contains the shared control state, input parsing, and input thread logic.
-- `src/dynamics.c` implements the core flight dynamics update (altitude, pitch, elevator actuation and vertical speed).
+- `src/dynamics.c` implements the core flight dynamics update (altitude, pitch, elevator actuation, and vertical speed).
+- `src/efcs.c` implements the EFCS/VNAV update and guidance logic.
 - `src/guard.c` implements the guard helper functions (clamping limits).
 - `src/main.c` contains the lightweight program entry point and simulation loop.
 - `src/terminal.c` contains terminal raw-mode helpers.

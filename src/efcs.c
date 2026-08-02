@@ -1,3 +1,8 @@
+// efcs.c
+// Author: Maksym Sharai
+// Date: 02/08/2026
+// Handles EFCS/VNAV autopilot logic and pitch guidance.
+
 #include "../include/efcs.h"
 
 #include <stddef.h>
