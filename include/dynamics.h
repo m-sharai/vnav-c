@@ -6,6 +6,7 @@
 #ifndef DYNAMICS_H
 #define DYNAMICS_H
 
+#include "guard.h"
 typedef struct {
   double current_angle_deg;
   double target_angle_deg;
@@ -22,6 +23,7 @@ typedef struct {
 
 void dynamics_init(FlightDynamics *self);
 
-void dynamics_update(FlightDynamics *dynamics, double delta_time_ms);
+void dynamics_update(FlightDynamics *dynamics, FlightGuard *guard,
+                     double delta_time_ms);
 
 #endif // DYNAMICS_H

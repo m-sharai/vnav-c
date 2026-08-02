@@ -22,7 +22,7 @@ all: $(TARGET)
 # Linker Stage: Combine object files into the final executable
 $(TARGET): $(OBJS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(OBJS) -o $(TARGET)
+	$(CC) $(OBJS) -o $(TARGET) -lm
 	@echo "Build Successful: $(TARGET)"
 
 # Compilation Stage: Compile each .c file into a .o file

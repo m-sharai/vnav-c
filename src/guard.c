@@ -71,3 +71,19 @@ double guard_clamp_vs(FlightGuard *guard, double target_vs_fpm) {
 
   return target_vs_fpm;
 }
+
+// Clamp a target pitch degree to the allowed pitch degree range.
+double guard_clamp_pitch(FlightGuard *guard, double target_pitch_deg) {
+  double min_pitch_deg = guard->min_pitch_deg;
+  double max_pitch_deg = guard->max_pitch_deg;
+
+  if (target_pitch_deg < min_pitch_deg) {
+    return min_pitch_deg;
+  }
+
+  if (target_pitch_deg > max_pitch_deg) {
+    return max_pitch_deg;
+  }
+
+  return target_pitch_deg;
+}

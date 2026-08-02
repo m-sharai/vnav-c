@@ -30,9 +30,14 @@ void guard_init(FlightGuard *self);
 
 // Clamp a generic value between a minimum and maximum bound.
 double guard_clamp(double value, double min, double max);
+
 // Clamp a target altitude to the allowed altitude range.
 double guard_clamp_alt(FlightGuard *guard, double target_alt_ft);
+
 // Clamp a target vertical speed to the allowed vertical speed range.
 double guard_clamp_vs(FlightGuard *guard, double target_vs_fpm);
+
+// Clamp a target pitch degree to the allowed pitch degree range.
+double guard_clamp_pitch(FlightGuard *guard, double target_pitch_deg);
 
 #endif // GUARD_H
