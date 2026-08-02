@@ -10,13 +10,17 @@
 #include "efcs.h"
 #include "guard.h"
 
+// Composite aircraft state that groups the simulation subsystems.
 typedef struct {
-  FlightDynamics flight_dynamics;
-  FlightGuard guard;
-  EFCS efcs;
+  FlightDynamics flight_dynamics; // Aircraft flight dynamics model.
+  FlightGuard guard;              // Guard logic and safety state.
+  EFCS efcs;                      // Flight-control and actuation state.
 } Aircraft;
 
+// Initialize the aircraft subsystems.
 void aircraft_init(Aircraft *self);
+
+// Advance the aircraft simulation by the given time interval.
 void aircraft_step(Aircraft *aircraft, double delta_time_ms);
 
 #endif // AIRCRAFT_H

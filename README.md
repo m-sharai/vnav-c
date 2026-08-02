@@ -30,6 +30,7 @@ vnav-c/
 │   ├── terminal.h
 │   └── ui.h
 └── src/
+    ├── aircraft.c
     ├── control.c
     ├── dynamics.c
     ├── efcs.c
@@ -57,6 +58,7 @@ vnav-c/
 - `include/guard.h` declares the flight guard limits and clamp helpers that keep the simulation within safe bounds.
 - `include/terminal.h` declares terminal setup/restore functions used to enable raw input mode.
 - `include/ui.h` declares the panel drawing function used by the text UI.
+- `src/aircraft.c` coordinates aircraft initialization and the main step update flow.
 - `src/control.c` contains the shared control state, input parsing, and input thread logic.
 - `src/dynamics.c` implements the core flight dynamics update (altitude, pitch, elevator actuation, and vertical speed).
 - `src/efcs.c` implements the EFCS/VNAV update and guidance logic.
